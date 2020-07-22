@@ -118,16 +118,18 @@ WaveNetDeviceExample::Receive (Ptr<NetDevice> dev, Ptr<const Packet> pkt, uint16
   if (myNode->GetId () != origin)
     {
       adjMatrix.SetEntry (myNode->GetId (), seq, 1.0);
-      switch (forwardCount)
-        {
-          case 0: {
-            WaveNetDeviceExample::SendOnePacket (SCH1, seq, myNode->GetId (), forwardCount + 1,
+      // switch (forwardCount)
+      //   {
+      //     case 0: {
+      //       WaveNetDeviceExample::SendOnePacket (SCH1, seq, myNode->GetId (), forwardCount + 1,
+      //                                            origin);
+      //       break;
+      //     }
+      //   default:
+      //     break;
+      //   }
+      WaveNetDeviceExample::SendOnePacket (SCH1, seq, myNode->GetId (), forwardCount + 1,
                                                  origin);
-            break;
-          }
-        default:
-          break;
-        }
 
     }
   return true;
