@@ -45,9 +45,9 @@ class WaveNetDeviceExample
 {
 public:
   /// Send WSMP example function
-  double SendExample (const std::string &posfile, uint32_t lanes, double lane_width, uint32_t nodeNum,
-                    const std::string &MobilityModel, double maxVelocity, double minVelocity,
-                    uint64_t sendNode);
+  double SendExample (const std::string &posfile, uint32_t lanes, double lane_width,
+                      uint32_t nodeNum, const std::string &MobilityModel, double maxVelocity,
+                      double minVelocity, uint64_t sendNode);
 
   void ShowMatrix (void);
 
@@ -128,9 +128,13 @@ WaveNetDeviceExample::Receive (Ptr<NetDevice> dev, Ptr<const Packet> pkt, uint16
       //   default:
       //     break;
       //   }
-      WaveNetDeviceExample::SendOnePacket (SCH1, seq, myNode->GetId (), forwardCount + 1,
-                                                 origin);
-
+      if (forwardCount < 3)
+        {
+          WaveNetDeviceExample::SendOnePacket (SCH1, seq, myNode->GetId (), forwardCount + 1,
+                                               origin);
+        }
+      // WaveNetDeviceExample::SendOnePacket (SCH1, seq, myNode->GetId (), forwardCount + 1,
+      //                                            origin);
     }
   return true;
 }
@@ -189,7 +193,7 @@ main (int argc, char *argv[])
   double minVelocity = 10.3535;
   double maxVelocity = 11.8686;
   // uint64_t sendNode = 0;
-  uint32_t nodeNum = 35;
+  uint32_t nodeNum = 50;
   CommandLine cmd;
   cmd.Parse (argc, argv);
 
@@ -198,9 +202,10 @@ main (int argc, char *argv[])
   double sumOfEachAvg = 0.0;
   for (uint32_t i = 0; i != nodeNum; i++)
     {
-      sumOfEachAvg += example.SendExample ("position_v.txt", 3, 4.0, nodeNum, "ns3::ConstantVelocityMobilityModel",
-                           maxVelocity, minVelocity, i);
+      sumOfEachAvg +=
+          example.SendExample ("position_v.txt", 3, 4.0, nodeNum,
+                               "ns3::ConstantVelocityMobilityModel", maxVelocity, minVelocity, i);
     }
-  std::cout << sumOfEachAvg/nodeNum << std::endl;
+  std::cout << sumOfEachAvg / nodeNum << std::endl;
   return 0;
 }
