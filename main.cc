@@ -195,6 +195,7 @@ main (int argc, char *argv[])
   // uint64_t sendNode = 0;
   uint32_t nodeNum = 50;
   CommandLine cmd;
+  cmd.AddValue ("nodeNum", "number of node in simulation", nodeNum);
   cmd.Parse (argc, argv);
 
   WaveNetDeviceExample example;
