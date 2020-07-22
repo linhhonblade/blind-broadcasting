@@ -203,7 +203,7 @@ main (int argc, char *argv[])
   for (uint32_t i = 0; i != nodeNum; i++)
     {
       sumOfEachAvg +=
-          example.SendExample ("position_v.txt", 3, 4.0, nodeNum,
+          example.SendExample ("position_v_2.txt", 3, 4.0, nodeNum,
                                "ns3::ConstantVelocityMobilityModel", maxVelocity, minVelocity, i);
     }
   std::cout << sumOfEachAvg / nodeNum << std::endl;
