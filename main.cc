@@ -191,9 +191,9 @@ int
 main (int argc, char *argv[])
 {
   double minVelocity = 10.3535;
-  double maxVelocity = 11.8686;
+  double maxVelocity =  11.8686;
   // uint64_t sendNode = 0;
-  uint32_t nodeNum = 50;
+  uint32_t nodeNum = 5;
   CommandLine cmd;
   cmd.AddValue ("nodeNum", "number of node in simulation", nodeNum);
   cmd.Parse (argc, argv);
@@ -205,7 +205,7 @@ main (int argc, char *argv[])
     {
       sumOfEachAvg +=
           example.SendExample ("position_v_2.txt", 3, 4.0, nodeNum,
-                               "ns3::ConstantVelocityMobilityModel", maxVelocity, minVelocity, i);
+                               "ns3::ConstantPositionMobilityModel", maxVelocity, minVelocity, i);
     }
   std::cout << sumOfEachAvg / nodeNum << std::endl;
   return 0;
