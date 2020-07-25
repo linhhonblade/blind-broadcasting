@@ -114,6 +114,7 @@ WaveNetDeviceExample::Receive (Ptr<NetDevice> dev, Ptr<const Packet> pkt, uint16
   Ptr<Node> myNode = dev->GetNode ();
   uint32_t seq = header.GetSeq ();
   uint16_t forwardCount = header.GetData ();
+  // std::cout << "forwardCount = " << forwardCount << std::endl;
   uint64_t origin = header.GetOrigin ();
   if (myNode->GetId () != origin)
     {
@@ -145,8 +146,8 @@ WaveNetDeviceExample::SendOnePacket (uint32_t channel, uint32_t seq, uint32_t se
 {
   Ptr<WaveNetDevice> sender = DynamicCast<WaveNetDevice> (devices.Get (senderNode));
   Mac48Address bssWildcard = Mac48Address::GetBroadcast ();
-
-  Ptr<Packet> p = Create<Packet> (0);
+  // std::cout << senderNode << "send forwardcount = " << forwardCount << std::endl;
+  Ptr<Packet> p = Create<Packet> (1000);
   MyHeader newHeader;
   newHeader.SetOrigin (origin);
   newHeader.SetData (forwardCount);
@@ -156,7 +157,7 @@ WaveNetDeviceExample::SendOnePacket (uint32_t channel, uint32_t seq, uint32_t se
   sender->RegisterTxProfile (txProfile);
   if (sender->Send (p, bssWildcard, 0))
     {
-      sender->DeleteTxProfile (SCH1);
+      // sender->DeleteTxProfile (SCH1);
     }
 }
 
@@ -204,7 +205,7 @@ main (int argc, char *argv[])
   for (uint32_t i = 0; i != nodeNum; i++)
     {
       sumOfEachAvg +=
-          example.SendExample ("position_v_2.txt", 3, 4.0, nodeNum,
+          example.SendExample ("position_v_3.txt", 3, 4.0, nodeNum,
                                "ns3::ConstantPositionMobilityModel", maxVelocity, minVelocity, i);
     }
   std::cout << sumOfEachAvg / nodeNum << std::endl;

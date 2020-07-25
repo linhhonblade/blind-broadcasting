@@ -106,11 +106,11 @@ AdjMatrix::RowSum (void)
     {
 
       double rowsum = std::accumulate (matrix[i].begin (), matrix[i].end (), 0);
-      // std::cout << rowsum << std::endl;
+      std::cout << rowsum << std::endl;
       sum += rowsum;
     }
   double result = sum / ((matrix.size () - 1) * 100);
-  // std::cout << "PDR = " << result << std::endl;
+  std::cout << "PDR = " << result << std::endl;
   return result;
 }
 
